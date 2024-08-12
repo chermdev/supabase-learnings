@@ -131,7 +131,7 @@ create table Profile (
 create or replace function public.handle_new_user()
 returns trigger as $$
 begin
-  insert into public.Profile (id, email)
+  insert into public."Profile" (id, email)
   values (new.id, new.email);
   return new;
 end;
@@ -142,7 +142,7 @@ $$ language plpgsql security definer;
 
 ```sql
 -- trigger the function every time a user is created
-create trigger on_auth_user_created
+create or replace trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
 ```
@@ -150,3 +150,14 @@ create trigger on_auth_user_created
 4. Invite a user via the UI
 
 5. Validate a the new user is added in `auth.users` and `public.Profile`
+
+## Update Signup Email template for NextJS SSR
+
+Update href from `Confirm signup` template
+
+```html
+<h2>Confirm your signup</h2>
+
+<p>Follow this link to confirm your user:</p>
+<p><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup">Confirm your mail</a></p>
+```
