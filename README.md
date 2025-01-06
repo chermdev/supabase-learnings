@@ -159,5 +159,5 @@ Update href from `Confirm signup` template
 <h2>Confirm your signup</h2>
 
 <p>Follow this link to confirm your user:</p>
-<p><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup">Confirm your mail</a></p>
+<p><a href="{{ .RedirectTo }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup">Confirmar email</a></p>
 ```
